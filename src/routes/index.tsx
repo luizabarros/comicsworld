@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import Cart from "../pages/Cart/Cart"
-import ExpandedItem from "../pages/ExpandedItem/ExpandedItem"
+import ExpandedItem from "../pages/ExpandedComic/ExpandedComic"
 import LandingPage from "../pages/LandingPage/LandingPage"
 
 const MainRoutes = () => {
