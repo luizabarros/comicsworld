@@ -1,9 +1,9 @@
 import Header from "../../components/Header/Header"
 
-const ExpandedItem = () => {
+const ExpandedComic = () => {
     return (
         <Header/>
     )
 }
 
-export default ExpandedItem
+export default ExpandedComic
