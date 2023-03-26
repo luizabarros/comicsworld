@@ -2,7 +2,9 @@ import styled from "styled-components"
 
 const List = styled.ul`
     max-width: 1200px;
+    min-height: 100vh;
     display: flex;
+    align-items: center;
     gap: 15px;
     padding: 1.5rem;
     margin: 0 auto;
