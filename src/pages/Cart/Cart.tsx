@@ -2,7 +2,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks"
 import { Link } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { IComic } from "../../components/Card/Card"
-import { getTotal, removeFromCart } from "../../features/cart/cartSlice"
+import { clearCart, getTotal, removeFromCart } from "../../features/cart/cartSlice"
 import { toast } from "react-toastify"
 import { useEffect } from "react"
 import Footer from "../../components/Footer/Footer"
@@ -21,7 +21,9 @@ const Cart = () => {
         })
     }
 
-    console.log(cart)
+    function handleClearCart() {
+        dispatch(clearCart())
+    }
 
     useEffect(() => {
         dispatch(getTotal())
@@ -97,7 +99,7 @@ const Cart = () => {
                             </ul>
 
                             <div className="cartSummary">
-                                <button>Limpar carrinho</button>
+                                <button onClick={() => handleClearCart()}>Limpar carrinho</button>
 
                                 <div className="cartCheckout">
                                     <div className="subtotal">

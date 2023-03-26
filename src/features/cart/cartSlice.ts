@@ -57,9 +57,19 @@ const itemsSlice = createSlice({
 
             state.cartTotalQuantity = quantity
             state.cartTotalAmount = total
+        },
+        clearCart(state) {
+            state.cartItems = []
+            toast.success("Itens removidos!", {
+                position: "bottom-left"
+            })
         }
     }
 })
 
-export const { addToCart, removeFromCart, getTotal } = itemsSlice.actions
+export const { 
+    addToCart, 
+    removeFromCart,
+    getTotal, 
+    clearCart } = itemsSlice.actions
 export default itemsSlice.reducer
