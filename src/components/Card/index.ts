@@ -3,14 +3,14 @@ import styled from "styled-components"
 const List = styled.ul`
     max-width: 1200px;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     padding: 1.5rem;
     margin: 0 auto;
     overflow-x: auto;
 
     li {
         width: 207px;
-        height: 300px;
+        height: 320px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -47,7 +47,7 @@ const List = styled.ul`
     h2 {
         font: var(--title-2);
         width: 200px;
-        height: 50px;
+        height: 70px;
         text-align: center;
     }
     

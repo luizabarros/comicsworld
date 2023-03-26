@@ -89,6 +89,7 @@ const Card = () => {
             previousLabel={"Anterior"}
             nextLabel = {"Próxima"}
             pageCount={5}
+            containerClassName={"paginationBtns"}
             onPageChange={changePage}/>
         </>
     )

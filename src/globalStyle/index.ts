@@ -40,6 +40,21 @@ const Global = createGlobalStyle`
     img {
         max-width: 100%;
     }
+
+    .paginationBtns {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font: var(--headline-bold);
+        cursor: pointer;
+    }
+
+    .paginationBtns li:hover {
+        transform: scale(105%);
+    }
 `
 
 export default Global
