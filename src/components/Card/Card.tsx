@@ -5,6 +5,7 @@ import { getCurrentOffset } from "../../features/offset/offsetSlice"
 import { useNavigate } from "react-router-dom"
 import ReactPaginate from "react-paginate"
 import api from "../../services/api"
+import List from "."
 
 export interface IComic {
     title: string,
@@ -56,7 +57,7 @@ const Card = () => {
 
     return (
         <>
-            <ul>
+            <List>
                 {
                     comics.map(({ id, title, thumbnail, prices }, index) => {
                         const srcImg = thumbnail.path + "." + thumbnail.extension
@@ -66,10 +67,12 @@ const Card = () => {
                         return (
                             <li 
                             key={ index }>
-                                <img 
-                                src={ srcImg } 
-                                alt={ title }
-                                onClick={() => goToExpandedItem(id)}/>
+                                <div>
+                                    <img 
+                                    src={ srcImg } 
+                                    alt={ title }
+                                    onClick={() => goToExpandedItem(id)}/>
+                                </div>
                                 
                                 <h2 
                                 onClick={() => goToExpandedItem(id)}>{ title }</h2>
@@ -80,7 +83,7 @@ const Card = () => {
                         )
                     })
                 }
-            </ul>
+            </List>
 
             <ReactPaginate
             previousLabel={"Anterior"}

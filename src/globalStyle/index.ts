@@ -23,6 +23,10 @@ const Global = createGlobalStyle`
         --headline-shorter: 400 1rem var(--font-family);
     }
 
+    div#root {
+        background: var(--grey-0);
+    }
+
     * {
         box-sizing: border-box;
         margin: 0;
