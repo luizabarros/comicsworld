@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { getComics } from "../../features/comics/comicsSlice"
 import api from "../../services/api"
 
-interface IComic {
+export interface IComic {
     title: string,
     id: number,
     prices: {
@@ -15,7 +17,9 @@ interface IComic {
 }
 
 const Card = () => {
-    const [comics, setComics] = useState<IComic[] | []>([])
+    const comics = useAppSelector(state => state.comics.comics)
+    const dispatch = useAppDispatch()
+
     const [currentOffset, setCurrentOffset] = useState<number>(0)
     const loadMoreRef = useRef(null)
 
@@ -49,7 +53,7 @@ const Card = () => {
             })
 
             const newComics = response.data.data.results
-            setComics(oldComics => [...oldComics, ...newComics])
+            dispatch(getComics(newComics))
         }
         infiniteScrolling()
     }, [currentOffset])
