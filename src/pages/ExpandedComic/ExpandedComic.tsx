@@ -1,5 +1,6 @@
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
+import Container from "."
 import { useParams } from "react-router-dom"
 import { useAppSelector } from "../../app/hooks"
 
@@ -16,15 +17,18 @@ const ExpandedComic = () => {
     return (
         <>
             <Header/>
-            <div>
+            <Container>
                 <img 
                 src={ srcImg } 
                 alt={ foundComic?.title }/>
-                <h2>{ foundComic?.title }</h2>
-                <p>{ foundComic?.description }</p>
-                <p>{ validatePrice?.toLocaleString('pt-BR', format) }</p>
-                <p>Adicionar ao carrinho</p>
-            </div>
+
+                <div>
+                    <h2>{ foundComic?.title }</h2>
+                    <p>{ foundComic?.description }</p>
+                    <p>{ validatePrice?.toLocaleString('pt-BR', format) }</p>
+                    <button>Adicionar ao carrinho</button>
+                </div>
+            </Container>
             <Footer/>
         </>
     )
