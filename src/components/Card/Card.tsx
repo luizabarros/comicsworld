@@ -29,7 +29,6 @@ const Card = () => {
 
     useEffect(() => {
         async function getItems() {
-            console.log(offset)
             const response = await api.get("", {
                 params: {
                     limit: 10,
@@ -67,7 +66,7 @@ const Card = () => {
                     })
                 }
             </ul>
-            
+
             <ReactPaginate
             previousLabel={"Anterior"}
             nextLabel = {"Próxima"}

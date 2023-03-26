@@ -14,7 +14,7 @@ const comicsSlice = createSlice({
     initialState,
     reducers: {
         getComics(state, action: PayloadAction<IComic[]>) {
-            state.comics = [...state.comics, ...action.payload]
+            state.comics = action.payload
         }
     }
 })
