@@ -5,10 +5,13 @@ import { useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { IComic } from "../../components/Card/Card"
 import { addToCart } from "../../features/cart/cartSlice"
+import { useNavigate } from "react-router-dom"
 
 const ExpandedComic = () => {
     const { id } = useParams()
     const comics = useAppSelector(state => state.comics.comics)
+
+    const navigate = useNavigate()
 
     const foundComic = comics.find(comic => comic.id === Number(id))
 
@@ -20,6 +23,7 @@ const ExpandedComic = () => {
 
     function handleAddToCart(item: IComic) {
         dispatch(addToCart(item))
+        navigate("/carrinho")
     }
 
     return (

@@ -30,7 +30,6 @@ interface ICurrentPage {
 const Card = () => {
     const comics = useAppSelector(state => state.comics.comics)
     const offset = useAppSelector(state => state.offset.currentOffset)
-    const cart = useAppSelector(state => state.itemsCart.cartItems)
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -60,6 +59,7 @@ const Card = () => {
 
     function handleAddToCart(item: IComic) {
         dispatch(addToCart(item))
+        navigate("/carrinho")
     }
 
     return (
