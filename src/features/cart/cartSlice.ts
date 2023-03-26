@@ -36,9 +36,30 @@ const itemsSlice = createSlice({
                 })
             }
 
+        },
+        removeFromCart(state, action: PayloadAction<IComic>) {
+            const nextCartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+            state.cartItems = nextCartItems
+        },
+        getTotal(state) {
+            let { total, quantity } = state.cartItems.reduce((cartTotal, cartItem, index) => {
+                const { prices, cartQuantity } = cartItem
+                const itemTotal = prices[0].price * cartQuantity!
+
+                cartTotal.total += itemTotal
+                cartTotal.quantity += cartQuantity!
+
+                return cartTotal 
+            }, {
+                total: 0,
+                quantity: 0
+            })
+
+            state.cartTotalQuantity = quantity
+            state.cartTotalAmount = total
         }
     }
 })
 
-export const { addToCart } = itemsSlice.actions
+export const { addToCart, removeFromCart, getTotal } = itemsSlice.actions
 export default itemsSlice.reducer

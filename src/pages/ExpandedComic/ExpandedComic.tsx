@@ -16,7 +16,7 @@ const ExpandedComic = () => {
     const foundComic = comics.find(comic => comic.id === Number(id))
 
     const format = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }
-    const validatePrice = foundComic?.prices[0].price === 0 ? 1.99 : foundComic?.prices[0].price 
+    const validatePrice = foundComic?.prices[0].price.toLocaleString('pt-BR', format)
     const srcImg = foundComic?.thumbnail.path + "." + foundComic?.thumbnail.extension
 
     const dispatch = useAppDispatch()
@@ -37,7 +37,7 @@ const ExpandedComic = () => {
                 <div>
                     <h2>{ foundComic?.title }</h2>
                     <p>{ foundComic?.description }</p>
-                    <p>{ validatePrice?.toLocaleString('pt-BR', format) }</p>
+                    <p>{ validatePrice }</p>
                     <button onClick={() => handleAddToCart(foundComic!)}>Adicionar ao carrinho</button>
                 </div>
             </Container>

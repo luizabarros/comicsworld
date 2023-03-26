@@ -68,8 +68,8 @@ const Card = () => {
                 {
                     comics.map((item, index) => {
                         const srcImg = item.thumbnail.path + "." + item.thumbnail.extension
-                        const validatePrice = item.prices[0].price === 0 ? 1.99 : item.prices[0].price 
                         const format = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }
+                        const validatePrice = item.prices[0].price.toLocaleString('pt-BR', format)
 
                         return (
                             <li 
@@ -84,7 +84,7 @@ const Card = () => {
                                 <h2 
                                 onClick={() => goToExpandedItem(item.id)}>{ item.title }</h2>
                                 
-                                <p>{ validatePrice.toLocaleString('pt-BR', format) }</p>
+                                <p>{ validatePrice }</p>
                                 <p onClick={() => handleAddToCart(item)}>Adicionar ao carrinho</p>
                             </li>
                         )

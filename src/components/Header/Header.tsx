@@ -1,8 +1,10 @@
 import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
+import { useAppSelector } from "../../app/hooks"
 import Container from "."
 
 const Header = () => {
+    const cart = useAppSelector(state => state.itemsCart.cartItems.length)
     const navigate = useNavigate()
 
     return (
@@ -22,7 +24,7 @@ const Header = () => {
                 <div className="cart">
                     <AiOutlineShoppingCart/>
                     <span className="bagQuantity">
-                        <span>0</span>
+                        <span>{ cart }</span>
                     </span>
                 </div>
             </header>

@@ -1,6 +1,10 @@
-import { useAppSelector } from "../../app/hooks"
+import { useAppSelector, useAppDispatch } from "../../app/hooks"
 import { Link } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
+import { IComic } from "../../components/Card/Card"
+import { getTotal, removeFromCart } from "../../features/cart/cartSlice"
+import { toast } from "react-toastify"
+import { useEffect } from "react"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
 import Container from "."
@@ -8,6 +12,20 @@ import Container from "."
 const Cart = () => {
     const cart = useAppSelector(state => state.itemsCart.cartItems)
     const cartTotal = useAppSelector(state => state.itemsCart.cartTotalAmount)
+    const dispatch = useAppDispatch()
+
+    function handleRemoveFromCart(item: IComic) {
+        dispatch(removeFromCart(item))
+        toast.success("Removido com sucesso!", {
+            position: "bottom-left"
+        })
+    }
+
+    console.log(cart)
+
+    useEffect(() => {
+        dispatch(getTotal())
+    }, [cart])
 
     return (
         <>
@@ -34,8 +52,9 @@ const Cart = () => {
                                 {
                                     cart.map((item, index) => {
                                         const srcImg = item.thumbnail.path + "." + item.thumbnail.extension
-                                        const validatePrice = item.prices[0].price === 0 ? 1.99 : item.prices[0].price 
                                         const format = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }
+                                        const validatePrice = item.prices[0].price.toLocaleString('pt-BR', format)
+                                        const priceWithoutValidation = item.prices[0].price
 
                                         return (
                                             <li key={index}>
@@ -45,14 +64,14 @@ const Cart = () => {
 
                                                     <div>
                                                         <h4>{ item.title }</h4>
-                                                        <button>Remover</button>
+                                                        <button onClick={() => handleRemoveFromCart(item)}>Remover</button>
                                                     </div>
                                                 </div>
 
                                                 
                                                 <div className="cartPrice">
                                                     <h3 className="price">Preço</h3>
-                                                    <p>{ validatePrice.toLocaleString('pt-BR', format) }</p>
+                                                    <p>{ validatePrice }</p>
                                                 </div>
 
                                                 <div className="cartQuantity">
@@ -69,7 +88,7 @@ const Cart = () => {
 
                                                 <div className="cartTotal">
                                                     <h3 className="total">Total</h3>   
-                                                    ${ validatePrice * item.cartQuantity! }
+                                                    ${ priceWithoutValidation * item.cartQuantity! }
                                                 </div>
                                             </li>
                                         )
