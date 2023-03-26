@@ -5,6 +5,7 @@ const Container = styled.div`
     box-shadow: 0px 4px 30px -10px var(--box-shadow);
 
     header {
+        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;

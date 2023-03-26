@@ -18,6 +18,7 @@ const Global = createGlobalStyle`
         --title-1: 700 1.8rem var(--font-family);
         --title-2: 600 1.6rem var(--font-family);
         --title-3: 700 1.4rem var(--font-family);
+        --title-4: 700 2.5rem var(--font-family);
         --headline: 400 1.2rem var(--font-family);
         --headline-bold: 600 1.2rem var(--font-family);
         --headline-shorter: 400 1rem var(--font-family);
