@@ -1,8 +1,10 @@
 import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
+import { useAppSelector } from "../../app/hooks"
 import Container from "."
 
 const Header = () => {
+    const cart = useAppSelector(state => state.itemsCart.cartItems.length)
     const navigate = useNavigate()
 
     return (
@@ -19,7 +21,12 @@ const Header = () => {
                     placeholder="Pesquise um item"/>
                 </div>
 
-                <AiOutlineShoppingCart/>
+                <div className="cart">
+                    <AiOutlineShoppingCart/>
+                    <span className="bagQuantity">
+                        <span>{ cart }</span>
+                    </span>
+                </div>
             </header>
         </Container>
     )
