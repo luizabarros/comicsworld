@@ -3,9 +3,10 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { getComics } from "../../features/comics/comicsSlice"
 import { getCurrentOffset } from "../../features/offset/offsetSlice"
 import { useNavigate } from "react-router-dom"
+import { addToCart } from "../../features/cart/cartSlice"
 import ReactPaginate from "react-paginate"
-import api from "../../services/api"
 import List from "."
+import api from "../../services/api"
 
 export interface IComic {
     title: string,
@@ -18,7 +19,8 @@ export interface IComic {
         extension: string,
         path: string
     }
-    description?: string
+    description?: string,
+    cartQuantity?: number
 }
 
 interface ICurrentPage {
@@ -28,6 +30,7 @@ interface ICurrentPage {
 const Card = () => {
     const comics = useAppSelector(state => state.comics.comics)
     const offset = useAppSelector(state => state.offset.currentOffset)
+    const cart = useAppSelector(state => state.itemsCart.cartItems)
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -55,13 +58,17 @@ const Card = () => {
         navigate(`item/${id}`)
     }
 
+    function handleAddToCart(item: IComic) {
+        dispatch(addToCart(item))
+    }
+
     return (
         <>
             <List>
                 {
-                    comics.map(({ id, title, thumbnail, prices }, index) => {
-                        const srcImg = thumbnail.path + "." + thumbnail.extension
-                        const validatePrice = prices[0].price === 0 ? 1.99 : prices[0].price 
+                    comics.map((item, index) => {
+                        const srcImg = item.thumbnail.path + "." + item.thumbnail.extension
+                        const validatePrice = item.prices[0].price === 0 ? 1.99 : item.prices[0].price 
                         const format = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }
 
                         return (
@@ -70,15 +77,15 @@ const Card = () => {
                                 <div>
                                     <img 
                                     src={ srcImg } 
-                                    alt={ title }
-                                    onClick={() => goToExpandedItem(id)}/>
+                                    alt={ item.title }
+                                    onClick={() => goToExpandedItem(item.id)}/>
                                 </div>
                                 
                                 <h2 
-                                onClick={() => goToExpandedItem(id)}>{ title }</h2>
+                                onClick={() => goToExpandedItem(item.id)}>{ item.title }</h2>
                                 
                                 <p>{ validatePrice.toLocaleString('pt-BR', format) }</p>
-                                <p>Adicionar ao carrinho</p>
+                                <p onClick={() => handleAddToCart(item)}>Adicionar ao carrinho</p>
                             </li>
                         )
                     })

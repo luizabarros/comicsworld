@@ -42,6 +42,28 @@ const Container = styled.div`
         cursor: pointer;
     }
 
+    .cart {
+        position: relative;
+    }
+
+    .bagQuantity {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        color: var(--white);
+        font: var(--headline-shorter);
+        background: var(--black);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .bagQuantity {
+        width: 20px;
+        height: 20px;
+    }
+
     @media (min-width: 410px) {
         header {
             justify-content: space-between;

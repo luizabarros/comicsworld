@@ -19,7 +19,12 @@ const Header = () => {
                     placeholder="Pesquise um item"/>
                 </div>
 
-                <AiOutlineShoppingCart/>
+                <div className="cart">
+                    <AiOutlineShoppingCart/>
+                    <span className="bagQuantity">
+                        <span>0</span>
+                    </span>
+                </div>
             </header>
         </Container>
     )
