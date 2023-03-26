@@ -1,8 +1,11 @@
 import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai"
+import { useNavigate } from "react-router-dom"
 
 const Header = () => {
+    const navigate = useNavigate()
+
     return (
-        <header>
+        <header onClick={() => navigate("/")}>
             <h1>ComicsWorld</h1>
 
             <div>
