@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { getComics } from "../../features/comics/comicsSlice"
 import { getCurrentOffset } from "../../features/offset/offsetSlice"
+import ReactPaginate from "react-paginate"
 import api from "../../services/api"
 
 export interface IComic {
@@ -17,38 +18,20 @@ export interface IComic {
     }
 }
 
+interface ICurrentPage {
+    selected: number
+}
+
 const Card = () => {
     const comics = useAppSelector(state => state.comics.comics)
     const offset = useAppSelector(state => state.offset.currentOffset)
     const dispatch = useAppDispatch()
 
-    const loadMoreRef = useRef(null)
-
     useEffect(() => {
-        const options = {
-            root: null,
-            rootMargin: "20px",
-            threshold: 1.0
-        }
-
-        const observer = new IntersectionObserver((entities) => {
-            const target = entities[0]
-
-            if (target.isIntersecting) {
-                dispatch(getCurrentOffset())
-            }
-        }, options)
-
-        if (loadMoreRef.current) {
-            observer.observe(loadMoreRef.current)
-        }
-    }, [])
-
-    useEffect(() => {
-        async function infiniteScrolling() {
+        async function getItems() {
             const response = await api.get("", {
                 params: {
-                    limit: 8,
+                    limit: 10,
                     offset: offset
                 }
             })
@@ -56,30 +39,42 @@ const Card = () => {
             const newComics = response.data.data.results
             dispatch(getComics(newComics))
         }
-        infiniteScrolling()
+        getItems()
     }, [offset])
 
-    return (
-        <ul>
-            {
-                comics.map(({ title, thumbnail, prices }, index) => {
-                    const srcImg = thumbnail.path + "." + thumbnail.extension
-                    const validatePrice = prices[0].price == 0 ? 1.99 : prices[0].price 
-                    const format = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }
+    function changePage({ selected }: ICurrentPage) {
+        dispatch(getCurrentOffset(selected + 1))
+    }
 
-                    return (
-                        <li key={ index }>
-                            <img src={ srcImg } alt={ title }/>
-                            <h2>{ title }</h2>
-                            <p>{ validatePrice.toLocaleString('pt-BR', format) }</p>
-                            <p>Adicionar ao carrinho</p>
-                        </li>
-                    )
-                })
-            }
-            <p ref={loadMoreRef}>Carregando mais HQs...</p>
-        </ul>
+    return (
+        <>
+            <ul>
+                {
+                    comics.map(({ title, thumbnail, prices }, index) => {
+                        const srcImg = thumbnail.path + "." + thumbnail.extension
+                        const validatePrice = prices[0].price == 0 ? 1.99 : prices[0].price 
+                        const format = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }
+
+                        return (
+                            <li key={ index }>
+                                <img src={ srcImg } alt={ title }/>
+                                <h2>{ title }</h2>
+                                <p>{ validatePrice.toLocaleString('pt-BR', format) }</p>
+                                <p>Adicionar ao carrinho</p>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+
+            <ReactPaginate
+            previousLabel={"Anterior"}
+            nextLabel = {"Próxima"}
+            pageCount={5}
+            onPageChange={changePage}
+            />
+        </>
     )
 }
 
-export default Card
+export default Card 

@@ -1,19 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface OffsetState {
-    currentOffset: number
+    currentOffset: number,
 }
 
 const initialState: OffsetState = {
-    currentOffset: 0
+    currentOffset: 0,
 }
 
 const offsetSlice = createSlice({
     name: "offset",
     initialState,
     reducers: {
-        getCurrentOffset(state) {
-            state.currentOffset += state.currentOffset + 8
+        getCurrentOffset(state, action: PayloadAction<number>) {
+            state.currentOffset = 10 * action.payload
         }
     }
 })
