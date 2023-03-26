@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import comicsReducer from "../features/comics/comicsSlice"
+import offsetReducer from "../features/offset/offsetSlice"
 
 export const store = configureStore({
     reducer: {
-        comics: comicsReducer
+        comics: comicsReducer,
+        offset: offsetReducer
     }
 })
 

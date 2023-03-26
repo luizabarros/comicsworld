@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { getComics } from "../../features/comics/comicsSlice"
+import { getCurrentOffset } from "../../features/offset/offsetSlice"
 import api from "../../services/api"
 
 export interface IComic {
@@ -18,9 +19,9 @@ export interface IComic {
 
 const Card = () => {
     const comics = useAppSelector(state => state.comics.comics)
+    const offset = useAppSelector(state => state.offset.currentOffset)
     const dispatch = useAppDispatch()
 
-    const [currentOffset, setCurrentOffset] = useState<number>(0)
     const loadMoreRef = useRef(null)
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const Card = () => {
             const target = entities[0]
 
             if (target.isIntersecting) {
-                setCurrentOffset(old => old + 8)
+                dispatch(getCurrentOffset())
             }
         }, options)
 
@@ -48,7 +49,7 @@ const Card = () => {
             const response = await api.get("", {
                 params: {
                     limit: 8,
-                    offset: currentOffset
+                    offset: offset
                 }
             })
 
@@ -56,7 +57,7 @@ const Card = () => {
             dispatch(getComics(newComics))
         }
         infiniteScrolling()
-    }, [currentOffset])
+    }, [offset])
 
     return (
         <ul>
