@@ -2,7 +2,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks"
 import { Link } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { IComic } from "../../components/Card/Card"
-import { clearCart, getTotal, removeFromCart } from "../../features/cart/cartSlice"
+import { clearCart, decreaseCart, getTotal, increaseCart, removeFromCart } from "../../features/cart/cartSlice"
 import { toast } from "react-toastify"
 import { useEffect } from "react"
 import Footer from "../../components/Footer/Footer"
@@ -23,6 +23,14 @@ const Cart = () => {
 
     function handleClearCart() {
         dispatch(clearCart())
+    }
+    
+    function handleDecrease(item: IComic) {
+        dispatch(decreaseCart(item))
+    }
+    
+    function handleIncrease(item: IComic) {
+        dispatch(increaseCart(item))
     }
 
     useEffect(() => {
@@ -82,9 +90,9 @@ const Cart = () => {
                                                     </div>
 
                                                     <div className="cartQuantityBtns">
-                                                        <button>-</button>
+                                                        <button onClick={() => handleDecrease(item)}>-</button>
                                                         <p>{ item.cartQuantity }</p>
-                                                        <button>+</button>
+                                                        <button onClick={() => handleIncrease(item)}>+</button>
                                                     </div>
                                                 </div>
 

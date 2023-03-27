@@ -63,6 +63,21 @@ const itemsSlice = createSlice({
             toast.success("Itens removidos!", {
                 position: "bottom-left"
             })
+        },
+        decreaseCart(state, action: PayloadAction<IComic>) {
+            const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id)
+            
+            if (state.cartItems[itemIndex].cartQuantity! > 1) {
+                state.cartItems[itemIndex].cartQuantity!--
+
+            } else if (state.cartItems[itemIndex].cartQuantity === 1) {
+                const nextCartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+                state.cartItems = nextCartItems
+            }
+        },
+        increaseCart(state, action: PayloadAction<IComic>) {
+            const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id)
+            state.cartItems[itemIndex].cartQuantity!++
         }
     }
 })
@@ -71,5 +86,7 @@ export const {
     addToCart, 
     removeFromCart,
     getTotal, 
-    clearCart } = itemsSlice.actions
+    clearCart,
+    decreaseCart,
+    increaseCart } = itemsSlice.actions
 export default itemsSlice.reducer
