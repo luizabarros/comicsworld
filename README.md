@@ -19,7 +19,7 @@ Esse projeto consiste em loja geek da Marvel.
 Roda no modo de desenvolvimento.\
 Open [http://localhost:3000](http://localhost:3000) para visualizar no seu navegador.
 
-### `yarn test`
+### yarn run cypress open
 
 Para rodar os teste E2E.
 
