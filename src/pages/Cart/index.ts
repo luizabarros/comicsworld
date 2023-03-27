@@ -50,7 +50,9 @@ const Container = styled.div`
     }
 
     .cartItems {
-        min-width: 60%;
+        min-width: 70%;
+        height: 200px;
+        overflow-y: scroll;
         margin-top: 20px;
         display: flex;
         flex-direction: column;
@@ -63,7 +65,8 @@ const Container = styled.div`
         min-width: 60%;
         display: flex;
         justify-content: space-between;
-        gap: 20px;
+        gap: 10px;
+        margin-bottom: 30px;
     }
 
     .cartProduct, .cartProduct div {
@@ -113,6 +116,12 @@ const Container = styled.div`
 
     .continueShopping a {
         justify-content: center;
+    }
+
+    @media (min-width: 800px) {
+        .cartItems li {
+            width: 900px;
+        }
     }
 `
 
